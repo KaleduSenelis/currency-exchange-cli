@@ -13,6 +13,11 @@ public class ExchangeRatesService(
         ExchangeInput exchangeInput,
         CancellationToken cancellationToken)
     {
+        if (exchangeInput.MainCurrency == exchangeInput.MoneyCurrency)
+        {
+            return exchangeInput.Amount;
+        }
+
         var mainCurrencyRate = await GetExchangeRate(exchangeInput.MainCurrency, cancellationToken);
         var moneyCurrencyRate = await GetExchangeRate(exchangeInput.MoneyCurrency, cancellationToken);
 
